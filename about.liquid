@@ -1,0 +1,115 @@
+---
+layout: layout.liquid
+title: About
+---
+
+<div class="page-hero page-hero--about">
+  <div class="container">
+    <span class="section-label mono">// about</span>
+    <h1 class="page-title">About Me</h1>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container about-layout">
+
+    <!-- ── Bio column -->
+    <div class="about-bio">
+      <div class="about-avatar" aria-hidden="true">
+        <div class="about-avatar-inner">{{ site.name | slice: 0 }}{{ site.name | split: " " | last | slice: 0 }}</div>
+      </div>
+      <div class="about-bio-text">
+        <h2>{{ site.name }}</h2>
+        <p class="about-subtitle mono">{{ site.degree }} · {{ site.university }} · {{ site.graduationYear }}</p>
+        <p>{{ site.bio }}</p>
+        <p>
+          I'm most comfortable in C and C++, though I reach for Python for tooling and Go for anything network-heavy.
+          Outside of code, I'm interested in how hardware and software meet — whether that's real-time embedded constraints,
+          low-level rendering pipelines, or the OS scheduler deciding what runs next.
+        </p>
+        <p>
+          When I'm not at a keyboard I'm usually thinking about system design, reading about CPU microarchitecture,
+          or prototyping a game mechanic that probably won't make the final cut.
+        </p>
+        <div class="about-contact-row">
+          <a href="mailto:{{ site.email }}" class="btn btn--primary">Get in Touch</a>
+          <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="btn btn--outline">GitHub</a>
+          <a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" class="btn btn--outline">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Skills Breakdown -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label mono">skills &amp; tools</span>
+      <h2 class="section-title">What I Know</h2>
+    </div>
+
+    <!-- Languages row -->
+    <div class="skills-languages">
+      <span class="skills-languages-label mono">Languages →</span>
+      <div class="skills-language-chips">
+        {% for lang in skills.languages %}
+        <span class="lang-chip">{{ lang }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Domain skill grids -->
+    <div class="skills-domain-grid">
+
+      <div class="skills-domain-card skills-domain-card--cs">
+        <h3 class="skills-domain-title">
+          <span class="badge badge--cs">CS</span>
+          {{ skills.cs.label }}
+        </h3>
+        <ul class="skills-list">
+          {% for item in skills.cs.items %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="skills-domain-card skills-domain-card--gamedev">
+        <h3 class="skills-domain-title">
+          <span class="badge badge--gamedev">Game Dev</span>
+          {{ skills.gamedev.label }}
+        </h3>
+        <ul class="skills-list">
+          {% for item in skills.gamedev.items %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="skills-domain-card skills-domain-card--embedded">
+        <h3 class="skills-domain-title">
+          <span class="badge badge--embedded">Embedded</span>
+          {{ skills.embedded.label }}
+        </h3>
+        <ul class="skills-list">
+          {% for item in skills.embedded.items %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Tools row -->
+    <div class="skills-tools">
+      <span class="skills-tools-label mono">Tools &amp; Env →</span>
+      <div class="skills-language-chips">
+        {% for tool in skills.tools %}
+        <span class="lang-chip lang-chip--tool">{{ tool }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</section>

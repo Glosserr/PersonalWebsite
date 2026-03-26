@@ -1,0 +1,14 @@
+{
+  "name": "Your Name",
+  "initials": "YN",
+  "tagline": "Computer Scientist · Game Developer · Embedded Engineer",
+  "bio": "I'm a Computer Science senior graduating in May 2025, with a focus on systems programming, game development, and embedded firmware. I like building things that are fast, correct, and occasionally fun to play.",
+  "email": "you@email.com",
+  "github": "https://github.com/yourusername",
+  "linkedin": "https://linkedin.com/in/yourprofile",
+  "location": "Your City, ST",
+  "university": "Your University",
+  "degree": "B.S. Computer Science",
+  "graduationYear": "2025",
+  "resumeFile": "/public/resume.pdf"
+}

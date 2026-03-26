@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Software Engineering Intern",
+    "company": "Company Name",
+    "type": "work",
+    "location": "Remote",
+    "startDate": "May 2024",
+    "endDate": "Aug 2024",
+    "current": false,
+    "description": "Built and shipped [describe what you built]. Improved [metric] by [amount]. Collaborated with a cross-functional team of engineers to [outcome].",
+    "technologies": ["Python", "AWS Lambda", "Docker", "PostgreSQL"]
+  },
+  {
+    "title": "Undergraduate Research Assistant",
+    "company": "Your University — CS Dept.",
+    "type": "research",
+    "location": "Your City, ST",
+    "startDate": "Jan 2024",
+    "endDate": "Present",
+    "current": true,
+    "description": "Researching [topic] under Prof. [Name]. Implementing and evaluating [methods] for [application]. Contributing to a publication submitted to [venue].",
+    "technologies": ["Python", "PyTorch", "CUDA", "Linux"]
+  },
+  {
+    "title": "Teaching Assistant — Data Structures",
+    "company": "Your University",
+    "type": "ta",
+    "location": "Your City, ST",
+    "startDate": "Aug 2023",
+    "endDate": "Dec 2023",
+    "current": false,
+    "description": "Led weekly office hours serving 80+ students. Designed and graded programming assignments covering trees, graphs, and hash maps. Assisted with lab sessions.",
+    "technologies": ["Java", "Algorithm Design"]
+  },
+  {
+    "title": "B.S. Computer Science",
+    "company": "Your University",
+    "type": "education",
+    "location": "Your City, ST",
+    "startDate": "Aug 2021",
+    "endDate": "May 2025",
+    "current": false,
+    "description": "GPA: 3.X / 4.0. Relevant coursework: Operating Systems, Compilers, Computer Architecture, Algorithms & Complexity, Computer Graphics, Embedded Systems, Machine Learning.",
+    "technologies": []
+  }
+]

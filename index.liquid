@@ -1,7 +1,145 @@
 ---
 layout: layout.liquid
-title: 11ty Boilerplate
+title: Home
 ---
 
-<h1>Yet Another 11ty <strong>Boilerplate</strong></h1>
-<img alt="pine" src="/images/pine.png" width="50" />
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-glow hero-glow--1"></div>
+    <div class="hero-glow hero-glow--2"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow"><span class="mono">// hello, world — I'm</span></p>
+    <h1 class="hero-name">{{ site.name }}</h1>
+    <div class="hero-role-line">
+      <span class="mono hero-role-prefix">&gt; </span>
+      <span class="hero-role" id="role-text"></span><span class="hero-cursor" aria-hidden="true">▋</span>
+    </div>
+    <p class="hero-desc">{{ site.bio }}</p>
+    <div class="hero-cta">
+      <a href="/projects/" class="btn btn--primary">View Projects</a>
+      <a href="/resume/" class="btn btn--outline">Resume &amp; Experience</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge badge--cs">CS</span>
+      <span class="badge badge--gamedev">Game Dev</span>
+      <span class="badge badge--embedded">Embedded</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FEATURED PROJECTS
+════════════════════════════════════════════════════════════════ -->
+<section class="section" id="featured">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label mono">01 / featured</span>
+      <h2 class="section-title">Selected Work</h2>
+    </div>
+
+    <div class="projects-grid">
+      {% assign featured_projects = projects | featured %}
+      {% for project in featured_projects %}
+      <article class="project-card project-card--{{ project.category }}">
+        <div class="project-card-top">
+          <span class="badge badge--{{ project.category }}">
+            {% if project.category == "cs" %}CS
+            {% elsif project.category == "gamedev" %}Game Dev
+            {% else %}Embedded{% endif %}
+          </span>
+          <span class="project-year mono">{{ project.year }}</span>
+        </div>
+        <h3 class="project-title">{{ project.title }}</h3>
+        <p class="project-desc">{{ project.description }}</p>
+        <div class="project-tags">
+          {% for tag in project.tags limit: 4 %}
+          <span class="project-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        <div class="project-links">
+          {% if project.github %}
+          <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          {% endif %}
+          {% if project.demo %}
+          <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live Demo
+          </a>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="section-footer-link">
+      <a href="/projects/" class="btn btn--ghost">All Projects &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     DOMAINS PREVIEW
+════════════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="domains">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label mono">02 / domains</span>
+      <h2 class="section-title">What I Build</h2>
+    </div>
+    <div class="domains-grid">
+      <div class="domain-card">
+        <div class="domain-icon domain-icon--cs">⟨/⟩</div>
+        <h3>Computer Science</h3>
+        <p>Distributed systems, compilers, algorithms, operating systems, and machine learning — the full spectrum of CS fundamentals applied to real problems.</p>
+        <span class="domain-count mono">Primary focus · {{ skills.cs.items | size }} areas</span>
+      </div>
+      <div class="domain-card">
+        <div class="domain-icon domain-icon--gamedev">◈</div>
+        <h3>Game Development</h3>
+        <p>Custom engine architecture in C++/OpenGL, Unity projects, procedural content generation, and real-time physics simulation.</p>
+        <span class="domain-count mono">{{ projects | byCategory: "gamedev" | size }} projects</span>
+      </div>
+      <div class="domain-card">
+        <div class="domain-icon domain-icon--embedded">⬡</div>
+        <h3>Embedded Systems</h3>
+        <p>Bare-metal and RTOS-based firmware on ARM Cortex-M microcontrollers. Low-level hardware interfacing, motor control, and real-time constraints.</p>
+        <span class="domain-count mono">{{ projects | byCategory: "embedded" | size }} projects</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ── Typewriter role rotator
+(function () {
+  const roles = ['Computer Scientist', 'Systems Programmer', 'Game Developer', 'Embedded Engineer'];
+  const el = document.getElementById('role-text');
+  let ri = 0, ci = 0, deleting = false;
+
+  function tick() {
+    const word = roles[ri];
+    el.textContent = deleting ? word.slice(0, ci - 1) : word.slice(0, ci + 1);
+    deleting ? ci-- : ci++;
+
+    if (!deleting && ci === word.length) {
+      deleting = true;
+      setTimeout(tick, 1800);
+      return;
+    }
+    if (deleting && ci === 0) {
+      deleting = false;
+      ri = (ri + 1) % roles.length;
+    }
+    setTimeout(tick, deleting ? 45 : 90);
+  }
+  tick();
+})();
+</script>

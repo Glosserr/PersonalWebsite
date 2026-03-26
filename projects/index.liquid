@@ -1,0 +1,111 @@
+---
+layout: layout.liquid
+title: Projects
+---
+
+<div class="page-hero page-hero--projects">
+  <div class="container">
+    <span class="section-label mono">// projects</span>
+    <h1 class="page-title">Projects</h1>
+    <p class="page-subtitle">A mix of computer science, game development, and embedded systems work. Add new entries in <code class="inline-code">_data/projects.json</code>.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- ── Filter bar -->
+    <div class="filter-bar" role="group" aria-label="Filter projects by category">
+      <button class="filter-btn active" data-filter="all">All <span class="filter-count" id="count-all"></span></button>
+      <button class="filter-btn" data-filter="cs">Computer Science <span class="filter-count" id="count-cs"></span></button>
+      <button class="filter-btn" data-filter="gamedev">Game Dev <span class="filter-count" id="count-gamedev"></span></button>
+      <button class="filter-btn" data-filter="embedded">Embedded <span class="filter-count" id="count-embedded"></span></button>
+    </div>
+
+    <!-- ── Project grid -->
+    <div class="projects-grid projects-grid--full" id="projects-grid">
+      {% for project in projects %}
+      <article
+        class="project-card project-card--{{ project.category }}"
+        data-category="{{ project.category }}"
+      >
+        <div class="project-card-top">
+          <span class="badge badge--{{ project.category }}">
+            {% if project.category == "cs" %}CS
+            {% elsif project.category == "gamedev" %}Game Dev
+            {% else %}Embedded{% endif %}
+          </span>
+          <div class="project-meta-right">
+            {% if project.status == "in-progress" %}<span class="status-pill status-pill--active">In Progress</span>{% endif %}
+            <span class="project-year mono">{{ project.year }}</span>
+          </div>
+        </div>
+
+        <h3 class="project-title">{{ project.title }}</h3>
+        <p class="project-desc">{{ project.description }}</p>
+
+        <div class="project-tags">
+          {% for tag in project.tags %}
+          <span class="project-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="project-links">
+          {% if project.github %}
+          <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          {% endif %}
+          {% if project.demo %}
+          <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live Demo
+          </a>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="projects-add-note">
+      <p class="mono">// To add a new project, append an entry to <code class="inline-code">_data/projects.json</code> and rebuild.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  const grid = document.getElementById('projects-grid');
+  const cards = Array.from(grid.querySelectorAll('.project-card'));
+  const buttons = document.querySelectorAll('.filter-btn');
+
+  // Populate counts
+  const counts = { all: cards.length, cs: 0, gamedev: 0, embedded: 0 };
+  cards.forEach(c => { counts[c.dataset.category]++; });
+  Object.entries(counts).forEach(([k, v]) => {
+    const el = document.getElementById('count-' + k);
+    if (el) el.textContent = '(' + v + ')';
+  });
+
+  // Filter logic
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.style.display = match ? '' : 'none';
+        if (match) {
+          card.style.animation = 'none';
+          card.offsetHeight; // reflow
+          card.style.animation = '';
+        }
+      });
+    });
+  });
+})();
+</script>

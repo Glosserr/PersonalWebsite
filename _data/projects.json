@@ -1,0 +1,86 @@
+[
+  {
+    "id": "distributed-scheduler",
+    "title": "Distributed Task Scheduler",
+    "description": "Fault-tolerant distributed task scheduler implementing the Raft consensus algorithm for leader election and log replication. Handles node failures gracefully with automatic re-election.",
+    "category": "cs",
+    "tags": ["Go", "Raft", "gRPC", "Distributed Systems"],
+    "github": "https://github.com/yourusername/distributed-scheduler",
+    "demo": null,
+    "featured": true,
+    "year": 2024,
+    "status": "completed"
+  },
+  {
+    "id": "game-engine-2d",
+    "title": "2D Game Engine",
+    "description": "Custom 2D engine in C++ with an OpenGL renderer, AABB/circle physics, a tile-based level editor, and an entity-component system for flexible game object composition.",
+    "category": "gamedev",
+    "tags": ["C++", "OpenGL", "GLSL", "ECS", "Physics"],
+    "github": "https://github.com/yourusername/game-engine-2d",
+    "demo": "https://yourdemo.link",
+    "featured": true,
+    "year": 2024,
+    "status": "completed"
+  },
+  {
+    "id": "rtos-sensor-hub",
+    "title": "RTOS Sensor Hub",
+    "description": "Embedded firmware for an STM32F4 running FreeRTOS that aggregates data from multiple I2C and SPI sensors, applies kalman filtering, and transmits over UART with a custom packet protocol.",
+    "category": "embedded",
+    "tags": ["C", "FreeRTOS", "STM32", "I2C", "SPI", "UART"],
+    "github": "https://github.com/yourusername/rtos-sensor-hub",
+    "demo": null,
+    "featured": true,
+    "year": 2023,
+    "status": "completed"
+  },
+  {
+    "id": "c-compiler",
+    "title": "C Subset Compiler",
+    "description": "Full compiler pipeline for a C-like language: handwritten recursive-descent parser, semantic analysis, SSA-form IR, and x86-64 code generation with register allocation.",
+    "category": "cs",
+    "tags": ["Python", "Compilers", "x86-64", "SSA IR"],
+    "github": "https://github.com/yourusername/c-compiler",
+    "demo": null,
+    "featured": false,
+    "year": 2023,
+    "status": "completed"
+  },
+  {
+    "id": "roguelike-rpg",
+    "title": "Procedural Roguelike RPG",
+    "description": "Unity roguelike with BSP-tree dungeon generation, hand-drawn pixel art, turn-based combat, and a data-driven item system. Published on itch.io.",
+    "category": "gamedev",
+    "tags": ["Unity", "C#", "Procedural Gen", "Pixel Art"],
+    "github": "https://github.com/yourusername/roguelike-rpg",
+    "demo": "https://itch.io/yourpage",
+    "featured": false,
+    "year": 2023,
+    "status": "completed"
+  },
+  {
+    "id": "ml-anomaly",
+    "title": "Network Anomaly Detector",
+    "description": "Real-time anomaly detection for network traffic using a variational autoencoder trained on the KDD Cup dataset. Achieves 97% precision with sub-10ms inference latency.",
+    "category": "cs",
+    "tags": ["Python", "PyTorch", "VAE", "Networking"],
+    "github": "https://github.com/yourusername/ml-anomaly",
+    "demo": null,
+    "featured": false,
+    "year": 2024,
+    "status": "in-progress"
+  },
+  {
+    "id": "motorcontrol-fw",
+    "title": "BLDC Motor Controller",
+    "description": "Bare-metal firmware for sinusoidal field-oriented control of a brushless DC motor on an STM32G4, driven by a custom gate driver PCB. Includes USB-CDC tuning interface.",
+    "category": "embedded",
+    "tags": ["C", "STM32G4", "FOC", "PWM", "USB-CDC"],
+    "github": "https://github.com/yourusername/motor-fw",
+    "demo": null,
+    "featured": false,
+    "year": 2024,
+    "status": "completed"
+  }
+]

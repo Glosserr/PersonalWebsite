@@ -1,8 +1,12 @@
 {
-  "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+  "name": "portfolio-site",
+  "version": "1.0.0",
+  "description": "Personal portfolio — CS, Game Dev, Embedded",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve"
   },
-  "dependencies": {
-    "@11ty/eleventy-upgrade-help": "^3.0.1"
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
   }
 }

@@ -1,0 +1,46 @@
+{
+  "languages": ["C", "C++", "Python", "Go", "Java", "C#", "JavaScript", "x86 Assembly", "GLSL"],
+  "cs": {
+    "label": "Computer Science",
+    "color": "cs",
+    "items": [
+      "Algorithms & Data Structures",
+      "Operating Systems",
+      "Distributed Systems",
+      "Compilers & PLT",
+      "Computer Networks",
+      "Machine Learning",
+      "Database Systems",
+      "Computer Architecture"
+    ]
+  },
+  "gamedev": {
+    "label": "Game Development",
+    "color": "gamedev",
+    "items": [
+      "Custom Engine Dev (C++/OpenGL)",
+      "Unity (C#)",
+      "Unreal (Blueprints)",
+      "Physics Simulation",
+      "Procedural Generation",
+      "GLSL Shader Writing",
+      "Entity-Component Systems",
+      "Game Design Fundamentals"
+    ]
+  },
+  "embedded": {
+    "label": "Embedded Systems",
+    "color": "embedded",
+    "items": [
+      "STM32 / ARM Cortex-M",
+      "FreeRTOS",
+      "I2C · SPI · UART · CAN",
+      "Bare-Metal C Firmware",
+      "JTAG / GDB Debugging",
+      "Motor Control (FOC)",
+      "PCB Bring-up",
+      "Low-Power Design"
+    ]
+  },
+  "tools": ["Git", "Linux", "Docker", "CMake", "GDB", "Vim / Neovim", "Wireshark", "AWS", "CI/CD (GitHub Actions)"]
+}

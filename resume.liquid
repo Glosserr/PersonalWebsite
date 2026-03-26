@@ -1,0 +1,127 @@
+---
+layout: layout.liquid
+title: Resume
+---
+
+<div class="page-hero page-hero--resume">
+  <div class="container">
+    <span class="section-label mono">// resume</span>
+    <h1 class="page-title">Resume &amp; Experience</h1>
+    <div class="resume-download-row">
+      <a href="{{ site.resumeFile }}" class="btn btn--primary btn--download" download>
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF Resume
+      </a>
+      <span class="resume-hint mono">Place your PDF at <code class="inline-code">public/resume.pdf</code></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     EXPERIENCE TIMELINE
+════════════════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label mono">experience &amp; education</span>
+      <h2 class="section-title">Background</h2>
+    </div>
+
+    <div class="timeline">
+      {% for item in experience %}
+      <div class="timeline-item timeline-item--{{ item.type }}">
+        <div class="timeline-marker">
+          <div class="timeline-dot"></div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-header">
+            <div class="timeline-title-group">
+              <h3 class="timeline-role">{{ item.title }}</h3>
+              <p class="timeline-company">{{ item.company }}</p>
+            </div>
+            <div class="timeline-meta">
+              <span class="timeline-dates mono">{{ item.startDate }} — {% if item.current %}<span class="timeline-current">Present</span>{% else %}{{ item.endDate }}{% endif %}</span>
+              <span class="timeline-location mono">{{ item.location }}</span>
+            </div>
+          </div>
+          <p class="timeline-desc">{{ item.description }}</p>
+          {% if item.technologies.size > 0 %}
+          <div class="timeline-tags">
+            {% for tech in item.technologies %}
+            <span class="project-tag">{{ tech }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SKILLS SUMMARY
+════════════════════════════════════════════════════════════════ -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label mono">skills at a glance</span>
+      <h2 class="section-title">Technical Skills</h2>
+    </div>
+
+    <div class="resume-skills-grid">
+      <div class="resume-skill-block">
+        <h3 class="resume-skill-heading mono">Languages</h3>
+        <div class="skills-language-chips">
+          {% for lang in skills.languages %}
+          <span class="lang-chip">{{ lang }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="resume-skill-block">
+        <h3 class="resume-skill-heading mono">CS &amp; Software</h3>
+        <div class="skills-language-chips">
+          {% for item in skills.cs.items %}
+          <span class="lang-chip lang-chip--cs">{{ item }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="resume-skill-block">
+        <h3 class="resume-skill-heading mono">Game Development</h3>
+        <div class="skills-language-chips">
+          {% for item in skills.gamedev.items %}
+          <span class="lang-chip lang-chip--gamedev">{{ item }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="resume-skill-block">
+        <h3 class="resume-skill-heading mono">Embedded Systems</h3>
+        <div class="skills-language-chips">
+          {% for item in skills.embedded.items %}
+          <span class="lang-chip lang-chip--embedded">{{ item }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="resume-skill-block">
+        <h3 class="resume-skill-heading mono">Tools &amp; Environment</h3>
+        <div class="skills-language-chips">
+          {% for tool in skills.tools %}
+          <span class="lang-chip lang-chip--tool">{{ tool }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="resume-download-footer">
+      <a href="{{ site.resumeFile }}" class="btn btn--primary btn--download" download>
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Full Resume (PDF)
+      </a>
+    </div>
+  </div>
+</section>
