@@ -140,6 +140,86 @@ title: Home
   50%      { opacity:0; }
 }
 
+/* ═══════════════════════════════
+   EVA MAGI DATA FLOW ANIMATION
+═══════════════════════════════ */
+
+.nge-magi-flow {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  background: #d85a10; /* EVA orange */
+}
+
+/* Diagonal circuit lines */
+.nge-magi-flow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(0,0,0,0.2) 0px,
+      rgba(0,0,0,0.2) 2px,
+      transparent 2px,
+      transparent 40px
+    );
+  opacity: 0.5;
+}
+
+/* Track container */
+.nge-flow-track {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  transform: rotate(-25deg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  animation: nge-flow-move 6s linear infinite;
+}
+
+/* Individual blocks */
+.nge-flow-node {
+  background: #000;
+  color: #00ff9c;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  padding: 6px 14px;
+  letter-spacing: 0.15em;
+  box-shadow: 0 0 8px rgba(0,255,150,0.5);
+  animation: nge-node-flicker 1.5s infinite alternate;
+}
+
+/* Movement (diagonal scroll illusion) */
+@keyframes nge-flow-move {
+  from {
+    transform: rotate(-25deg) translateY(0);
+  }
+  to {
+    transform: rotate(-25deg) translateY(-120px);
+  }
+}
+
+/* Subtle flicker like EVA UI */
+@keyframes nge-node-flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.nge-magi-flow {
+  animation: nge-flow-fadeout 1.6s ease forwards;
+}
+
+@keyframes nge-flow-fadeout {
+  0%   { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
 .nge-hero-name {
   font-family: var(--nge-font-orb) !important;
   color: var(--nge-white) !important;
@@ -437,6 +517,13 @@ body { padding-bottom: 24px; }
 </style>
 
 <div class="nge-realm">
+  <div class="nge-magi-flow">
+    <div class="nge-flow-track">
+      {% for i in (200..260) %}
+        <div class="nge-flow-node">{{ i | prepend: '00' }}</div>
+      {% endfor %}
+    </div>
+  </div>
   <div class="nge-ambient" aria-hidden="true"></div>
 
   <!-- ══════════════════════════════════════════════════
@@ -562,3 +649,19 @@ body { padding-bottom: 24px; }
     MAGI-01: CASPAR — ONLINE &nbsp;·&nbsp; MAGI-02: BALTHASAR — ONLINE &nbsp;·&nbsp; MAGI-03: MELCHIOR — ONLINE &nbsp;·&nbsp; SYSTEM STATUS: NOMINAL &nbsp;·&nbsp; PATTERN BLUE — CONFIRMED &nbsp;·&nbsp; ALL SYSTEMS GO &nbsp;·&nbsp; NERV HQ — TERMINAL ACTIVE &nbsp;·&nbsp;
   </div>
 </div>
+
+<script>
+document.querySelectorAll(".nge-magi-trigger").forEach(link => {
+  link.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    const flow = document.querySelector(".nge-magi-flow");
+    flow.style.display = "block";
+    flow.style.opacity = "1";
+
+    setTimeout(() => {
+      window.location.href = link.href;
+    }, 600);
+  });
+});
+</script>
