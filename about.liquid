@@ -3,113 +3,636 @@ layout: layout.liquid
 title: About
 ---
 
-<div class="page-hero page-hero--about">
-  <div class="container">
-    <span class="section-label mono">// about</span>
-    <h1 class="page-title">About Me</h1>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   KINGDOM HEARTS THEME — About Page
+   Cerulean skies · Gold Old English · Bubbly wonder
+═══════════════════════════════════════════════════════ */
+
+.kh-realm {
+  --kh-void:      #03071c;
+  --kh-deep:      #08132e;
+  --kh-navy:      #0d1f4a;
+  --kh-sky:       #1a4a90;
+  --kh-clear:     #3a8fd4;
+  --kh-light:     #7ec8ea;
+  --kh-pale:      #c5e8f8;
+  --kh-pearl:     #eef6ff;
+  --kh-white:     #ffffff;
+  --kh-gold:      #ffd700;
+  --kh-gold-mid:  #daa520;
+  --kh-gold-deep: #a07010;
+  --kh-glow:      rgba(62,143,212,0.45);
+  --kh-gold-glow: rgba(255,215,0,0.35);
+  --kh-radius:    20px;
+
+  position: relative;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse at 20% 10%, #102060 0%, var(--kh-void) 50%) fixed,
+              linear-gradient(160deg, var(--kh-void) 0%, var(--kh-deep) 50%, #0b1a3f 100%) fixed;
+  background-blend-mode: normal;
+  color: var(--kh-pale);
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── Starfield */
+.kh-realm::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at  5% 12%, rgba(255,255,255,.90) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 18% 32%, rgba(200,232,255,.80) 0%,transparent 100%),
+    radial-gradient(2px   2px   at 32%  6%, rgba(255,215,  0,.70) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 47% 22%, rgba(255,255,255,.65) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 58% 58%, rgba(200,232,255,.75) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 70%  9%, rgba(255,215,  0,.60) 0%,transparent 100%),
+    radial-gradient(2px   2px   at 80% 40%, rgba(255,255,255,.55) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 88% 72%, rgba(200,232,255,.70) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 93% 18%, rgba(255,255,255,.80) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 13% 78%, rgba(255,215,  0,.55) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 42% 88%, rgba(255,255,255,.45) 0%,transparent 100%),
+    radial-gradient(2px   2px   at 65% 82%, rgba(200,232,255,.50) 0%,transparent 100%);
+}
+
+/* ── Ambient glow orbs */
+.kh-realm::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 15% 30%, rgba(30,80,180,.18) 0%,transparent 70%),
+    radial-gradient(ellipse 500px 350px at 85% 70%, rgba(10,50,140,.14) 0%,transparent 70%),
+    radial-gradient(ellipse 300px 200px at 50% 10%, rgba(255,215,0,.05) 0%,transparent 70%);
+}
+
+/* ── Floating sparkle containers */
+.kh-sparkles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.kh-sparkle {
+  position: absolute;
+  font-size: 14px;
+  color: var(--kh-gold);
+  animation: kh-sparkle-anim 5s ease-in-out infinite;
+  opacity: 0;
+  user-select: none;
+}
+.kh-sparkle.blue { color: var(--kh-light); }
+.kh-sparkle.pearl { color: var(--kh-pearl); font-size: 10px; }
+
+@keyframes kh-sparkle-anim {
+  0%   { opacity:0; transform:translateY(8px) rotate(0deg) scale(.7); }
+  20%  { opacity:1; }
+  80%  { opacity:.6; }
+  100% { opacity:0; transform:translateY(-50px) rotate(200deg) scale(1.1); }
+}
+
+.kh-heart {
+  position: absolute;
+  opacity: 0;
+  animation: kh-heart-rise 9s ease-in-out infinite;
+  pointer-events: none;
+  user-select: none;
+  font-size: 18px;
+  filter: drop-shadow(0 0 4px rgba(135,206,235,.6));
+}
+@keyframes kh-heart-rise {
+  0%   { opacity:0; transform:translateY(20px) scale(.5); }
+  15%  { opacity:.55; }
+  85%  { opacity:.25; }
+  100% { opacity:0;  transform:translateY(-70px) scale(1); }
+}
+
+/* ── Content z-index */
+.kh-realm .page-hero,
+.kh-realm .section { position: relative; z-index: 2; }
+
+/* ── Hero */
+.kh-realm .page-hero {
+  background: transparent !important;
+  padding: 5rem 0 3rem;
+  text-align: center;
+}
+
+.kh-realm .page-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--kh-gold), var(--kh-light), var(--kh-gold), transparent);
+  box-shadow: 0 0 8px var(--kh-gold-glow);
+}
+
+.kh-realm .section-label {
+  font-family: 'Cinzel Decorative', serif !important;
+  color: var(--kh-gold) !important;
+  font-size: .7rem !important;
+  letter-spacing: .4em !important;
+  text-shadow: 0 0 12px var(--kh-gold-glow);
+  display: block;
+  margin-bottom: .75rem;
+}
+
+.kh-realm .page-title,
+.kh-realm h1 {
+  font-family: 'Cinzel Decorative', serif !important;
+  color: var(--kh-white) !important;
+  font-size: clamp(2.2rem, 6vw, 3.8rem) !important;
+  font-weight: 700;
+  text-shadow: 0 0 40px var(--kh-glow), 0 0 80px rgba(62,143,212,.18);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.kh-realm h2 {
+  font-family: 'Cinzel Decorative', serif !important;
+  color: var(--kh-pearl) !important;
+  text-shadow: 0 0 20px var(--kh-glow);
+  font-size: clamp(1.4rem, 3vw, 2rem) !important;
+}
+
+.kh-realm h3 {
+  font-family: 'Cinzel Decorative', serif !important;
+  color: var(--kh-gold) !important;
+  font-size: .95rem !important;
+  text-shadow: 0 0 10px var(--kh-gold-glow);
+  margin-bottom: 1rem;
+}
+
+.kh-realm p {
+  color: var(--kh-pale);
+  line-height: 1.85;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* ── Sections */
+.kh-realm .section {
+  background: transparent !important;
+  padding: 4rem 0;
+}
+
+.kh-realm .section--alt {
+  background: rgba(8,19,46,.65) !important;
+  backdrop-filter: blur(12px);
+  border-top:    1px solid rgba(255,215,0,.15);
+  border-bottom: 1px solid rgba(255,215,0,.15);
+  box-shadow: inset 0 1px 0 rgba(74,159,212,.1);
+}
+
+/* ── Gold wavy accent line */
+.kh-divider {
+  text-align: center;
+  color: var(--kh-gold);
+  letter-spacing: .6em;
+  opacity: .55;
+  margin: 1.25rem 0;
+  font-size: 1rem;
+  user-select: none;
+  text-shadow: 0 0 8px var(--kh-gold-glow);
+}
+
+/* ── About layout */
+.kh-realm .about-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.kh-realm .about-bio {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 640px) {
+  .kh-realm .about-bio { flex-direction: column; align-items: center; }
+}
+
+/* ── Avatar orb */
+.kh-realm .about-avatar-inner {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--kh-sky) 0%, var(--kh-clear) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--kh-white);
+  box-shadow: 0 0 30px var(--kh-glow), 0 0 60px rgba(62,143,212,.2), inset 0 1px 0 rgba(255,255,255,.3);
+  border: 2px solid rgba(255,215,0,.35);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.kh-realm .about-avatar-inner::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,215,0,.25);
+  animation: kh-ring-pulse 3.5s ease-in-out infinite;
+}
+.kh-realm .about-avatar-inner::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px solid rgba(74,159,212,.15);
+  animation: kh-ring-pulse 3.5s ease-in-out infinite .8s;
+}
+@keyframes kh-ring-pulse {
+  0%,100% { transform:scale(1);   opacity:1; }
+  50%      { transform:scale(1.1); opacity:.3; }
+}
+
+/* ── Subtitle */
+.kh-realm .about-subtitle {
+  font-family: 'Nunito', sans-serif !important;
+  color: var(--kh-gold) !important;
+  font-size: .88rem !important;
+  letter-spacing: .06em;
+  margin-bottom: 1rem;
+  opacity: .9;
+}
+
+/* ── Buttons */
+.kh-realm .btn--primary {
+  background: linear-gradient(135deg, var(--kh-gold) 0%, var(--kh-gold-mid) 100%) !important;
+  color: var(--kh-void) !important;
+  font-family: 'Cinzel Decorative', serif !important;
+  font-size: .65rem !important;
+  font-weight: 700;
+  letter-spacing: .12em;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: .75rem 2rem !important;
+  box-shadow: 0 4px 20px var(--kh-gold-glow), 0 2px 8px rgba(0,0,0,.4) !important;
+  transition: all .3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.kh-realm .btn--primary:hover {
+  box-shadow: 0 6px 30px rgba(255,215,0,.55) !important;
+  transform: translateY(-2px);
+}
+
+.kh-realm .btn--outline {
+  border: 1px solid rgba(126,200,234,.4) !important;
+  color: var(--kh-light) !important;
+  font-family: 'Nunito', sans-serif !important;
+  font-weight: 700;
+  border-radius: 50px !important;
+  padding: .75rem 2rem !important;
+  background: rgba(62,143,212,.1) !important;
+  backdrop-filter: blur(4px);
+  transition: all .3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.kh-realm .btn--outline:hover {
+  background: rgba(62,143,212,.25) !important;
+  border-color: var(--kh-light) !important;
+  box-shadow: 0 0 20px var(--kh-glow);
+}
+
+.kh-realm .about-contact-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+/* ── Section header */
+.kh-realm .section-header { margin-bottom: 2.5rem; }
+
+.kh-realm .section-title {
+  font-family: 'Cinzel Decorative', serif !important;
+  color: var(--kh-white) !important;
+  text-shadow: 0 0 20px var(--kh-glow);
+  position: relative;
+  display: inline-block;
+}
+.kh-realm .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0; width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--kh-gold), var(--kh-light), transparent);
+  box-shadow: 0 0 8px var(--kh-glow);
+}
+
+/* ── Skills languages/tools bar */
+.kh-realm .skills-languages,
+.kh-realm .skills-tools {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.kh-realm .skills-languages-label,
+.kh-realm .skills-tools-label {
+  font-family: 'Cinzel Decorative', serif !important;
+  color: var(--kh-gold) !important;
+  font-size: .65rem !important;
+  letter-spacing: .25em;
+  text-shadow: 0 0 8px var(--kh-gold-glow);
+  white-space: nowrap;
+}
+
+/* ── Chips */
+.kh-realm .lang-chip {
+  background: rgba(26,74,144,.4) !important;
+  border: 1px solid rgba(126,200,234,.28) !important;
+  color: var(--kh-pale) !important;
+  border-radius: 50px !important;
+  font-family: 'Nunito', sans-serif !important;
+  font-weight: 700;
+  font-size: .8rem !important;
+  padding: .3rem 1rem !important;
+  transition: all .25s ease;
+  backdrop-filter: blur(4px);
+}
+.kh-realm .lang-chip:hover {
+  background: rgba(62,143,212,.3) !important;
+  border-color: var(--kh-light) !important;
+  box-shadow: 0 0 12px var(--kh-glow);
+  transform: translateY(-1px);
+}
+
+/* ── Domain grid */
+.kh-realm .skills-domain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ── Domain cards */
+.kh-realm .skills-domain-card {
+  background: rgba(8,19,46,.75) !important;
+  border: 1px solid rgba(255,215,0,.12) !important;
+  border-radius: var(--kh-radius) !important;
+  backdrop-filter: blur(12px);
+  padding: 1.75rem !important;
+  position: relative;
+  overflow: hidden;
+  transition: all .35s ease;
+}
+.kh-realm .skills-domain-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--kh-gold), transparent);
+  opacity: 0;
+  transition: opacity .35s;
+}
+.kh-realm .skills-domain-card:hover::before { opacity: 1; }
+.kh-realm .skills-domain-card:hover {
+  border-color: rgba(255,215,0,.28) !important;
+  box-shadow: 0 12px 40px rgba(62,143,212,.12), 0 0 30px rgba(255,215,0,.05);
+  transform: translateY(-4px);
+}
+/* Inner shimmer */
+.kh-realm .skills-domain-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(74,159,212,.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── Skills list */
+.kh-realm .skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.kh-realm .skills-list li {
+  color: var(--kh-pale);
+  font-family: 'Nunito', sans-serif;
+  font-size: .9rem;
+  padding: .38rem 0 .38rem 1.4rem;
+  border-bottom: 1px solid rgba(74,159,212,.08);
+  position: relative;
+  line-height: 1.5;
+}
+.kh-realm .skills-list li:last-child { border-bottom: none; }
+.kh-realm .skills-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--kh-gold);
+  font-size: .55rem;
+}
+
+/* ── Badges */
+.kh-realm .badge--cs {
+  background: rgba(26,74,144,.55) !important;
+  color: var(--kh-pale) !important;
+  border: 1px solid rgba(74,159,212,.4) !important;
+  border-radius: 50px !important;
+  font-family: 'Nunito', sans-serif !important;
+  font-size: .7rem !important;
+  font-weight: 800;
+  padding: .2rem .75rem !important;
+}
+.kh-realm .badge--gamedev {
+  background: rgba(62,143,212,.2) !important;
+  color: var(--kh-light) !important;
+  border: 1px solid rgba(126,200,234,.4) !important;
+  border-radius: 50px !important;
+  font-family: 'Nunito', sans-serif !important;
+  font-size: .7rem !important;
+  font-weight: 800;
+  padding: .2rem .75rem !important;
+}
+.kh-realm .badge--embedded {
+  background: rgba(255,215,0,.12) !important;
+  color: var(--kh-gold) !important;
+  border: 1px solid rgba(255,215,0,.3) !important;
+  border-radius: 50px !important;
+  font-family: 'Nunito', sans-serif !important;
+  font-size: .7rem !important;
+  font-weight: 800;
+  padding: .2rem .75rem !important;
+}
+
+/* ── Skills domain title row */
+.kh-realm .skills-domain-title {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+</style>
+
+<div class="kh-realm">
+
+  <!-- ── Floating ambient particles -->
+  <div class="kh-sparkles" aria-hidden="true">
+    <span class="kh-sparkle"       style="top:12vh;left: 6vw;animation-delay:0s;  animation-duration:5.5s">✦</span>
+    <span class="kh-sparkle pearl" style="top:28vh;left:88vw;animation-delay:1.2s;animation-duration:7s">✧</span>
+    <span class="kh-sparkle blue"  style="top:55vh;left:12vw;animation-delay:2.4s;animation-duration:6s">✦</span>
+    <span class="kh-sparkle"       style="top:72vh;left:78vw;animation-delay:3.6s;animation-duration:5s">✧</span>
+    <span class="kh-sparkle pearl" style="top:40vh;left:50vw;animation-delay:0.7s;animation-duration:8s">✦</span>
+    <span class="kh-sparkle blue"  style="top:85vh;left:35vw;animation-delay:4.1s;animation-duration:6.5s">✧</span>
+    <span class="kh-sparkle"       style="top:18vh;left:65vw;animation-delay:1.8s;animation-duration:7s">✦</span>
+    <span class="kh-heart" style="top:22vh;left:3vw; animation-delay:0s; font-size:16px">♡</span>
+    <span class="kh-heart" style="top:60vh;left:95vw;animation-delay:3s; font-size:13px">🤍</span>
+    <span class="kh-heart" style="top:78vh;left:8vw; animation-delay:6s; font-size:14px">♡</span>
+    <span class="kh-heart" style="top:42vh;left:92vw;animation-delay:1.5s;font-size:18px">🤍</span>
   </div>
-</div>
 
-<section class="section">
-  <div class="container about-layout">
+  <!-- ══════════════════════════════════════════════════
+       PAGE HERO
+  ══════════════════════════════════════════════════ -->
+  <div class="page-hero page-hero--about">
+    <div class="container">
+      <span class="section-label mono">✦ about ✦</span>
+      <h1 class="page-title">About Me</h1>
+    </div>
+  </div>
 
-    <!-- ── Bio column -->
-    <div class="about-bio">
-      <div class="about-avatar" aria-hidden="true">
-        <div class="about-avatar-inner">{{ site.name | slice: 0 }}{{ site.name | split: " " | last | slice: 0 }}</div>
+  <!-- ══════════════════════════════════════════════════
+       BIO
+  ══════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container about-layout">
+      <div class="about-bio">
+
+        <!-- Avatar -->
+        <div class="about-avatar" aria-hidden="true">
+          <div class="about-avatar-inner">{{ site.name | slice: 0 }}{{ site.name | split: " " | last | slice: 0 }}</div>
+        </div>
+
+        <!-- Text -->
+        <div class="about-bio-text">
+          <h2>{{ site.name }}</h2>
+          <p class="about-subtitle mono">{{ site.degree }} · {{ site.university }} · {{ site.graduationYear }}</p>
+
+          <div class="kh-divider" aria-hidden="true">⋯ ✦ ⋯ ✦ ⋯</div>
+
+          <p>{{ site.bio }}</p>
+          <p>
+            I'm most comfortable in C and C++, though I reach for Python for tooling and Go for anything network‑heavy.
+            Outside of code, I'm interested in how hardware and software meet — whether that's real‑time embedded constraints,
+            low‑level rendering pipelines, or the OS scheduler deciding what runs next.
+          </p>
+          <p>
+            When I'm not at a keyboard I'm usually thinking about system design, reading about CPU microarchitecture,
+            or prototyping a game mechanic that probably won't make the final cut.
+          </p>
+
+          <div class="about-contact-row">
+            <a href="mailto:{{ site.email }}" class="btn btn--primary">Get in Touch</a>
+            <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="btn btn--outline">GitHub</a>
+            <a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" class="btn btn--outline">LinkedIn</a>
+          </div>
+        </div>
+
       </div>
-      <div class="about-bio-text">
-        <h2>{{ site.name }}</h2>
-        <p class="about-subtitle mono">{{ site.degree }} · {{ site.university }} · {{ site.graduationYear }}</p>
-        <p>{{ site.bio }}</p>
-        <p>
-          I'm most comfortable in C and C++, though I reach for Python for tooling and Go for anything network-heavy.
-          Outside of code, I'm interested in how hardware and software meet — whether that's real-time embedded constraints,
-          low-level rendering pipelines, or the OS scheduler deciding what runs next.
-        </p>
-        <p>
-          When I'm not at a keyboard I'm usually thinking about system design, reading about CPU microarchitecture,
-          or prototyping a game mechanic that probably won't make the final cut.
-        </p>
-        <div class="about-contact-row">
-          <a href="mailto:{{ site.email }}" class="btn btn--primary">Get in Touch</a>
-          <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="btn btn--outline">GitHub</a>
-          <a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" class="btn btn--outline">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SKILLS
+  ══════════════════════════════════════════════════ -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label mono">✦ skills &amp; tools ✦</span>
+        <h2 class="section-title">What I Know</h2>
+      </div>
+
+      <!-- Languages bar -->
+      <div class="skills-languages">
+        <span class="skills-languages-label mono">Languages →</span>
+        <div class="skills-language-chips">
+          {% for lang in skills.languages %}
+          <span class="lang-chip">{{ lang }}</span>
+          {% endfor %}
         </div>
       </div>
-    </div>
 
-  </div>
-</section>
+      <!-- Domain cards -->
+      <div class="skills-domain-grid">
 
-<!-- ── Skills Breakdown -->
-<section class="section section--alt">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label mono">skills &amp; tools</span>
-      <h2 class="section-title">What I Know</h2>
-    </div>
+        <div class="skills-domain-card skills-domain-card--cs">
+          <h3 class="skills-domain-title">
+            <span class="badge badge--cs">CS</span>
+            {{ skills.cs.label }}
+          </h3>
+          <ul class="skills-list">
+            {% for item in skills.cs.items %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
 
-    <!-- Languages row -->
-    <div class="skills-languages">
-      <span class="skills-languages-label mono">Languages →</span>
-      <div class="skills-language-chips">
-        {% for lang in skills.languages %}
-        <span class="lang-chip">{{ lang }}</span>
-        {% endfor %}
+        <div class="skills-domain-card skills-domain-card--gamedev">
+          <h3 class="skills-domain-title">
+            <span class="badge badge--gamedev">Game Dev</span>
+            {{ skills.gamedev.label }}
+          </h3>
+          <ul class="skills-list">
+            {% for item in skills.gamedev.items %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="skills-domain-card skills-domain-card--embedded">
+          <h3 class="skills-domain-title">
+            <span class="badge badge--embedded">Embedded</span>
+            {{ skills.embedded.label }}
+          </h3>
+          <ul class="skills-list">
+            {% for item in skills.embedded.items %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
       </div>
-    </div>
 
-    <!-- Domain skill grids -->
-    <div class="skills-domain-grid">
-
-      <div class="skills-domain-card skills-domain-card--cs">
-        <h3 class="skills-domain-title">
-          <span class="badge badge--cs">CS</span>
-          {{ skills.cs.label }}
-        </h3>
-        <ul class="skills-list">
-          {% for item in skills.cs.items %}
-          <li>{{ item }}</li>
+      <!-- Tools bar -->
+      <div class="skills-tools">
+        <span class="skills-tools-label mono">Tools &amp; Env →</span>
+        <div class="skills-language-chips">
+          {% for tool in skills.tools %}
+          <span class="lang-chip lang-chip--tool">{{ tool }}</span>
           {% endfor %}
-        </ul>
-      </div>
-
-      <div class="skills-domain-card skills-domain-card--gamedev">
-        <h3 class="skills-domain-title">
-          <span class="badge badge--gamedev">Game Dev</span>
-          {{ skills.gamedev.label }}
-        </h3>
-        <ul class="skills-list">
-          {% for item in skills.gamedev.items %}
-          <li>{{ item }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-
-      <div class="skills-domain-card skills-domain-card--embedded">
-        <h3 class="skills-domain-title">
-          <span class="badge badge--embedded">Embedded</span>
-          {{ skills.embedded.label }}
-        </h3>
-        <ul class="skills-list">
-          {% for item in skills.embedded.items %}
-          <li>{{ item }}</li>
-          {% endfor %}
-        </ul>
+        </div>
       </div>
 
     </div>
+  </section>
 
-    <!-- Tools row -->
-    <div class="skills-tools">
-      <span class="skills-tools-label mono">Tools &amp; Env →</span>
-      <div class="skills-language-chips">
-        {% for tool in skills.tools %}
-        <span class="lang-chip lang-chip--tool">{{ tool }}</span>
-        {% endfor %}
-      </div>
-    </div>
-
-  </div>
-</section>
+</div>

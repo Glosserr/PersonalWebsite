@@ -3,85 +3,600 @@ layout: layout.liquid
 title: Projects
 ---
 
-<div class="page-hero page-hero--projects">
-  <div class="container">
-    <span class="section-label mono">// projects</span>
-    <h1 class="page-title">Projects</h1>
-    <p class="page-subtitle">A mix of computer science, game development, and embedded systems work. Add new entries in <code class="inline-code">_data/projects.json</code>.</p>
-  </div>
-</div>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 
-<section class="section">
-  <div class="container">
+<style>
+/* ════════════════════════════════════════════════════════════════
+   PROJECTS PAGE — THREE-THEME SYSTEM
+   data-theme="default"  → clean dark CS blue
+   data-theme="ror2"     → Risk of Rain 2 void/space
+   data-theme="nge"      → Evangelion MAGI terminal
+════════════════════════════════════════════════════════════════ */
 
-    <!-- ── Filter bar -->
-    <div class="filter-bar" role="group" aria-label="Filter projects by category">
-      <button class="filter-btn active" data-filter="all">All <span class="filter-count" id="count-all"></span></button>
-      <button class="filter-btn" data-filter="cs">Computer Science <span class="filter-count" id="count-cs"></span></button>
-      <button class="filter-btn" data-filter="gamedev">Game Dev <span class="filter-count" id="count-gamedev"></span></button>
-      <button class="filter-btn" data-filter="embedded">Embedded <span class="filter-count" id="count-embedded"></span></button>
+/* ── Shared base token set ── */
+.projects-realm {
+  min-height: 100vh;
+  transition: background 0.6s ease, color 0.4s ease;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ════════════
+   DEFAULT / CS
+════════════ */
+.projects-realm[data-theme="default"],
+.projects-realm[data-theme="cs"] {
+  --pr-bg:        #0c0f1a;
+  --pr-bg2:       #111624;
+  --pr-card-bg:   rgba(20,26,46,.85);
+  --pr-border:    rgba(60,100,200,.25);
+  --pr-accent:    #4a90d4;
+  --pr-accent2:   #7ec8ea;
+  --pr-text:      #c8daf0;
+  --pr-label:     #7aabdd;
+  --pr-heading:   #ffffff;
+  --pr-tag-bg:    rgba(74,144,212,.15);
+  --pr-tag-text:  #8bc8f0;
+  --pr-btn-active:#4a90d4;
+  --pr-font-head: 'Rajdhani', sans-serif;
+  --pr-font-body: 'Exo 2', sans-serif;
+  --pr-font-mono: 'Share Tech Mono', monospace;
+  --pr-radius:    14px;
+  background: radial-gradient(ellipse at 50% 0%, #0d1840 0%, #0c0f1a 60%) fixed;
+  color: var(--pr-text);
+}
+
+/* ════════════
+   RISK OF RAIN 2
+════════════ */
+.projects-realm[data-theme="ror2"] {
+  --pr-bg:        #02000d;
+  --pr-bg2:       #060018;
+  --pr-card-bg:   rgba(8,0,30,.85);
+  --pr-border:    rgba(0,200,255,.18);
+  --pr-accent:    #00e5ff;
+  --pr-accent2:   #a855f7;
+  --pr-text:      #b8e8ff;
+  --pr-label:     #00c8e8;
+  --pr-heading:   #e0f8ff;
+  --pr-tag-bg:    rgba(0,200,255,.12);
+  --pr-tag-text:  #00d8f8;
+  --pr-btn-active:#00e5ff;
+  --pr-font-head: 'Orbitron', sans-serif;
+  --pr-font-body: 'Exo 2', sans-serif;
+  --pr-font-mono: 'Share Tech Mono', monospace;
+  --pr-radius:    8px;
+  background: radial-gradient(ellipse at 30% 20%, #200050 0%, #02000d 55%) fixed,
+              radial-gradient(ellipse at 80% 80%, #100040 0%, transparent 55%) fixed;
+  color: var(--pr-text);
+}
+
+/* ════════════
+   NGE MAGI
+════════════ */
+.projects-realm[data-theme="nge"] {
+  --pr-bg:        #060100;
+  --pr-bg2:       #0d0300;
+  --pr-card-bg:   rgba(18,4,0,.90);
+  --pr-border:    rgba(200,60,0,.28);
+  --pr-accent:    #e86500;
+  --pr-accent2:   #8b0000;
+  --pr-text:      #f0c89a;
+  --pr-label:     #e87830;
+  --pr-heading:   #ffe8c0;
+  --pr-tag-bg:    rgba(200,60,0,.15);
+  --pr-tag-text:  #e89060;
+  --pr-btn-active:#e86500;
+  --pr-font-head: 'Rajdhani', sans-serif;
+  --pr-font-body: 'Rajdhani', sans-serif;
+  --pr-font-mono: 'Share Tech Mono', monospace;
+  --pr-radius:    4px;
+  background: #060100 fixed;
+  color: var(--pr-text);
+}
+
+/* ── NGE grid overlay ── */
+.projects-realm[data-theme="nge"]::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(200,60,0,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,60,0,.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+/* scan lines */
+.projects-realm[data-theme="nge"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,.18) 0px,
+    rgba(0,0,0,.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ── RoR2 starfield ── */
+.ror2-stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity .8s ease;
+  background-image:
+    radial-gradient(1.5px 1.5px at  7% 14%, rgba(180,240,255,.9) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 19% 38%, rgba(255,255,255,.7) 0%,transparent 100%),
+    radial-gradient(2px   2px   at 33%  5%, rgba(150,100,255,.8) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 48% 26%, rgba(180,240,255,.6) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 62% 61%, rgba(255,255,255,.8) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 74% 11%, rgba(0,220,255,.7) 0%,transparent 100%),
+    radial-gradient(2px   2px   at 81% 44%, rgba(180,100,255,.6) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 89% 79%, rgba(255,255,255,.7) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 94% 22%, rgba(0,220,255,.55) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 12% 82%, rgba(180,240,255,.5) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 41% 91%, rgba(255,255,255,.45) 0%,transparent 100%),
+    radial-gradient(2px   2px   at 67% 85%, rgba(150,100,255,.55) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 55% 48%, rgba(0,200,255,.4) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 28% 55%, rgba(255,255,255,.6) 0%,transparent 100%);
+}
+.projects-realm[data-theme="ror2"] .ror2-stars { opacity: 1; }
+
+/* ── Nebula glow orbs for RoR2 ── */
+.ror2-nebula {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity .8s ease;
+  background:
+    radial-gradient(ellipse 500px 300px at 20% 25%, rgba(80,0,180,.25) 0%,transparent 70%),
+    radial-gradient(ellipse 400px 250px at 80% 70%, rgba(0,100,200,.2) 0%,transparent 70%),
+    radial-gradient(ellipse 350px 200px at 60% 10%, rgba(120,0,255,.15) 0%,transparent 70%),
+    radial-gradient(ellipse 300px 400px at 10% 80%, rgba(0,150,220,.12) 0%,transparent 70%);
+}
+.projects-realm[data-theme="ror2"] .ror2-nebula { opacity: 1; }
+
+/* ══════════════════
+   SHARED ELEMENT STYLES (use CSS vars above)
+══════════════════ */
+
+/* ── Content z-index ── */
+.projects-realm .page-hero,
+.projects-realm .section { position: relative; z-index: 2; }
+
+/* ── Hero ── */
+.projects-realm .page-hero {
+  background: transparent !important;
+  padding: 4.5rem 0 2.5rem;
+  transition: all .5s ease;
+}
+
+.projects-realm .section-label {
+  font-family: var(--pr-font-mono) !important;
+  color: var(--pr-label) !important;
+  font-size: .75rem !important;
+  letter-spacing: .3em !important;
+  display: block;
+  margin-bottom: .75rem;
+  transition: color .4s;
+}
+
+.projects-realm .page-title {
+  font-family: var(--pr-font-head) !important;
+  color: var(--pr-heading) !important;
+  font-size: clamp(2rem, 6vw, 3.5rem) !important;
+  font-weight: 700;
+  margin: 0 0 .75rem;
+  transition: all .4s;
+  letter-spacing: .04em;
+}
+
+.projects-realm .page-subtitle {
+  font-family: var(--pr-font-body) !important;
+  color: var(--pr-text) !important;
+  font-size: .95rem !important;
+  opacity: .8;
+  transition: color .4s;
+}
+
+/* ── Filter bar ── */
+.projects-realm .filter-bar {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  transition: all .4s;
+}
+
+.projects-realm .filter-btn {
+  font-family: var(--pr-font-mono) !important;
+  background: transparent;
+  border: 1px solid var(--pr-border);
+  color: var(--pr-text);
+  font-size: .78rem;
+  letter-spacing: .06em;
+  padding: .55rem 1.25rem;
+  border-radius: var(--pr-radius);
+  cursor: pointer;
+  transition: all .3s ease;
+  text-transform: uppercase;
+}
+.projects-realm .filter-btn:hover {
+  border-color: var(--pr-accent);
+  color: var(--pr-accent);
+  background: rgba(255,255,255,.04);
+}
+.projects-realm .filter-btn.active {
+  background: var(--pr-btn-active);
+  border-color: var(--pr-btn-active);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(0,0,0,.3);
+}
+
+/* ── Project grid ── */
+.projects-realm .projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  transition: all .4s;
+}
+
+/* ── Project cards ── */
+.projects-realm .project-card {
+  background: var(--pr-card-bg);
+  border: 1px solid var(--pr-border);
+  border-radius: var(--pr-radius);
+  padding: 1.5rem;
+  transition: all .4s ease, transform .3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  backdrop-filter: blur(8px);
+  animation: card-appear .4s ease both;
+}
+
+@keyframes card-appear {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.projects-realm .project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity .4s;
+}
+
+/* Default card top accent */
+.projects-realm[data-theme="default"] .project-card::before,
+.projects-realm[data-theme="cs"]      .project-card::before {
+  background: linear-gradient(90deg, transparent, var(--pr-accent), transparent);
+}
+.projects-realm[data-theme="ror2"] .project-card::before {
+  background: linear-gradient(90deg, transparent, #00e5ff, #a855f7, transparent);
+}
+.projects-realm[data-theme="nge"] .project-card::before {
+  background: linear-gradient(90deg, transparent, #e86500, #8b0000, transparent);
+}
+
+.projects-realm .project-card:hover::before { opacity: 1; }
+.projects-realm .project-card:hover {
+  border-color: var(--pr-accent);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.2);
+}
+
+/* RoR2 cards get a void glow */
+.projects-realm[data-theme="ror2"] .project-card:hover {
+  box-shadow: 0 0 30px rgba(0,220,255,.12), 0 16px 48px rgba(0,0,0,.6);
+}
+
+/* NGE cards get hard maroon glow */
+.projects-realm[data-theme="nge"] .project-card:hover {
+  box-shadow: 0 0 20px rgba(139,0,0,.2), 0 16px 48px rgba(0,0,0,.6);
+}
+
+/* ── Card top row ── */
+.projects-realm .project-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Badges ── */
+.projects-realm .badge {
+  font-family: var(--pr-font-mono) !important;
+  font-size: .68rem;
+  padding: .2rem .75rem;
+  border-radius: var(--pr-radius);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.projects-realm .badge--cs {
+  background: rgba(74,144,212,.2);
+  color: var(--pr-accent2, #7ec8ea);
+  border: 1px solid rgba(74,144,212,.35);
+}
+.projects-realm .badge--gamedev {
+  background: rgba(0,220,255,.12);
+  color: #00e5ff;
+  border: 1px solid rgba(0,220,255,.3);
+}
+.projects-realm .badge--embedded {
+  background: rgba(200,60,0,.15);
+  color: #e86500;
+  border: 1px solid rgba(200,60,0,.3);
+}
+
+/* ── Status pill ── */
+.projects-realm .status-pill--active {
+  font-family: var(--pr-font-mono);
+  font-size: .65rem;
+  background: rgba(var(--pr-accent), .15);
+  border: 1px solid var(--pr-accent);
+  color: var(--pr-accent);
+  padding: .18rem .65rem;
+  border-radius: var(--pr-radius);
+  animation: pulse-border 2s ease-in-out infinite;
+}
+@keyframes pulse-border {
+  0%,100% { box-shadow: none; }
+  50%      { box-shadow: 0 0 8px var(--pr-accent); }
+}
+
+/* ── Project text ── */
+.projects-realm .project-title {
+  font-family: var(--pr-font-head) !important;
+  color: var(--pr-heading) !important;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  transition: color .3s;
+  letter-spacing: .02em;
+}
+.projects-realm .project-card:hover .project-title { color: var(--pr-accent) !important; }
+
+.projects-realm .project-desc {
+  font-family: var(--pr-font-body) !important;
+  color: var(--pr-text);
+  font-size: .9rem;
+  line-height: 1.7;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.projects-realm .project-year {
+  font-family: var(--pr-font-mono) !important;
+  color: var(--pr-label);
+  font-size: .75rem;
+  opacity: .7;
+}
+
+/* ── Tags ── */
+.projects-realm .project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+.projects-realm .project-tag {
+  font-family: var(--pr-font-mono) !important;
+  background: var(--pr-tag-bg);
+  color: var(--pr-tag-text);
+  font-size: .68rem;
+  padding: .2rem .65rem;
+  border-radius: var(--pr-radius);
+  border: 1px solid rgba(255,255,255,.06);
+  letter-spacing: .05em;
+}
+
+/* ── Links ── */
+.projects-realm .project-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: .5rem;
+  border-top: 1px solid var(--pr-border);
+}
+.projects-realm .project-link {
+  font-family: var(--pr-font-mono) !important;
+  color: var(--pr-accent);
+  text-decoration: none;
+  font-size: .78rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  transition: all .25s;
+  letter-spacing: .04em;
+}
+.projects-realm .project-link:hover {
+  color: var(--pr-accent2, var(--pr-accent));
+  text-shadow: 0 0 8px currentColor;
+}
+
+/* ── Filter counts ── */
+.projects-realm .filter-count {
+  opacity: .6;
+  font-size: .7em;
+}
+
+/* ── Section ── */
+.projects-realm .section {
+  background: transparent !important;
+  padding: 3rem 0 5rem;
+}
+
+/* ── Footer note ── */
+.projects-realm .projects-add-note {
+  margin-top: 3rem;
+  opacity: .4;
+}
+.projects-realm .projects-add-note .mono,
+.projects-realm .projects-add-note p {
+  font-family: var(--pr-font-mono) !important;
+  font-size: .78rem;
+  color: var(--pr-label);
+}
+.projects-realm .inline-code {
+  background: rgba(255,255,255,.06);
+  padding: .1rem .4rem;
+  border-radius: 4px;
+  font-family: var(--pr-font-mono);
+  font-size: .85em;
+}
+
+/* ── Theme announcement bar ── */
+.theme-announcement {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  font-family: var(--pr-font-mono);
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .55rem 1.5rem;
+  border-radius: var(--pr-radius);
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: all .4s ease;
+  white-space: nowrap;
+}
+.theme-announcement.visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+.projects-realm[data-theme="ror2"] .theme-announcement {
+  background: rgba(0,20,40,.9);
+  border: 1px solid #00e5ff;
+  color: #00e5ff;
+  box-shadow: 0 0 20px rgba(0,220,255,.3);
+}
+.projects-realm[data-theme="nge"] .theme-announcement {
+  background: rgba(10,2,0,.9);
+  border: 1px solid #e86500;
+  color: #e86500;
+  box-shadow: 0 0 20px rgba(230,100,0,.25);
+}
+.projects-realm[data-theme="default"] .theme-announcement,
+.projects-realm[data-theme="cs"] .theme-announcement {
+  background: rgba(10,15,30,.9);
+  border: 1px solid #4a90d4;
+  color: #7ec8ea;
+  box-shadow: 0 0 20px rgba(74,144,212,.2);
+}
+</style>
+
+<div class="projects-realm" data-theme="default" id="projects-realm">
+
+  <!-- RoR2 background layers -->
+  <div class="ror2-stars"  aria-hidden="true"></div>
+  <div class="ror2-nebula" aria-hidden="true"></div>
+
+  <!-- Theme announcement -->
+  <div class="theme-announcement" id="theme-announcement"></div>
+
+  <!-- ══════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════ -->
+  <div class="page-hero page-hero--projects">
+    <div class="container">
+      <span class="section-label mono" id="hero-label">// projects</span>
+      <h1 class="page-title" id="hero-title">Projects</h1>
+      <p class="page-subtitle">A mix of computer science, game development, and embedded systems work. Add new entries in <code class="inline-code">_data/projects.json</code>.</p>
     </div>
+  </div>
 
-    <!-- ── Project grid -->
-    <div class="projects-grid projects-grid--full" id="projects-grid">
-      {% for project in projects %}
-      <article
-        class="project-card project-card--{{ project.category }}"
-        data-category="{{ project.category }}"
-      >
-        <div class="project-card-top">
-          <span class="badge badge--{{ project.category }}">
-            {% if project.category == "cs" %}CS
-            {% elsif project.category == "gamedev" %}Game Dev
-            {% else %}Embedded{% endif %}
-          </span>
-          <div class="project-meta-right">
-            {% if project.status == "in-progress" %}<span class="status-pill status-pill--active">In Progress</span>{% endif %}
-            <span class="project-year mono">{{ project.year }}</span>
+  <!-- ══════════════════════════════════════════════════
+       FILTER + GRID
+  ══════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+
+      <div class="filter-bar" role="group" aria-label="Filter projects by category">
+        <button class="filter-btn active" data-filter="all">All <span class="filter-count" id="count-all"></span></button>
+        <button class="filter-btn" data-filter="cs">Computer Science <span class="filter-count" id="count-cs"></span></button>
+        <button class="filter-btn" data-filter="gamedev">Game Dev <span class="filter-count" id="count-gamedev"></span></button>
+        <button class="filter-btn" data-filter="embedded">Embedded <span class="filter-count" id="count-embedded"></span></button>
+      </div>
+
+      <div class="projects-grid projects-grid--full" id="projects-grid">
+        {% for project in projects %}
+        <article
+          class="project-card project-card--{{ project.category }}"
+          data-category="{{ project.category }}"
+        >
+          <div class="project-card-top">
+            <span class="badge badge--{{ project.category }}">
+              {% if project.category == "cs" %}CS
+              {% elsif project.category == "gamedev" %}Game Dev
+              {% else %}Embedded{% endif %}
+            </span>
+            <div class="project-meta-right" style="display:flex;align-items:center;gap:.6rem;">
+              {% if project.status == "in-progress" %}<span class="status-pill status-pill--active">In Progress</span>{% endif %}
+              <span class="project-year mono">{{ project.year }}</span>
+            </div>
           </div>
-        </div>
 
-        <h3 class="project-title">{{ project.title }}</h3>
-        <p class="project-desc">{{ project.description }}</p>
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-desc">{{ project.description }}</p>
 
-        <div class="project-tags">
-          {% for tag in project.tags %}
-          <span class="project-tag">{{ tag }}</span>
-          {% endfor %}
-        </div>
+          <div class="project-tags">
+            {% for tag in project.tags %}
+            <span class="project-tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
 
-        <div class="project-links">
-          {% if project.github %}
-          <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener noreferrer">
-            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </a>
-          {% endif %}
-          {% if project.demo %}
-          <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener noreferrer">
-            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Live Demo
-          </a>
-          {% endif %}
-        </div>
-      </article>
-      {% endfor %}
+          <div class="project-links">
+            {% if project.github %}
+            <a href="{{ project.github }}" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            {% endif %}
+            {% if project.demo %}
+            <a href="{{ project.demo }}" class="project-link" target="_blank" rel="noopener noreferrer">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Live Demo
+            </a>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <div class="projects-add-note">
+        <p class="mono">// To add a new project, append an entry to <code class="inline-code">_data/projects.json</code> and rebuild.</p>
+      </div>
+
     </div>
+  </section>
 
-    <div class="projects-add-note">
-      <p class="mono">// To add a new project, append an entry to <code class="inline-code">_data/projects.json</code> and rebuild.</p>
-    </div>
-
-  </div>
-</section>
+</div>
 
 <script>
 (function () {
-  const grid = document.getElementById('projects-grid');
-  const cards = Array.from(grid.querySelectorAll('.project-card'));
+  const realm  = document.getElementById('projects-realm');
+  const grid   = document.getElementById('projects-grid');
+  const cards  = Array.from(grid.querySelectorAll('.project-card'));
   const buttons = document.querySelectorAll('.filter-btn');
+  const announce = document.getElementById('theme-announcement');
 
-  // Populate counts
+  /* ── Populate counts ── */
   const counts = { all: cards.length, cs: 0, gamedev: 0, embedded: 0 };
   cards.forEach(c => { counts[c.dataset.category]++; });
   Object.entries(counts).forEach(([k, v]) => {
@@ -89,20 +604,56 @@ title: Projects
     if (el) el.textContent = '(' + v + ')';
   });
 
-  // Filter logic
+  /* ── Theme config ── */
+  const themeMap = {
+    all:      { theme: 'default', label: '// projects', title: 'Projects',         msg: '' },
+    cs:       { theme: 'cs',      label: '// cs',       title: 'CS Projects',      msg: '◈ COMPUTER SCIENCE MODE' },
+    gamedev:  { theme: 'ror2',    label: '> LOGBOOK',   title: 'Game Dev',         msg: '◈ VOID SEQUENCE ACTIVE' },
+    embedded: { theme: 'nge',     label: 'SYSTEM:MAGI', title: 'Embedded Systems', msg: '◈ MAGI TERMINAL ONLINE' },
+  };
+
+  let announceTimer;
+
+  function showAnnounce(msg) {
+    if (!msg) return;
+    announce.textContent = msg;
+    announce.classList.add('visible');
+    clearTimeout(announceTimer);
+    announceTimer = setTimeout(() => announce.classList.remove('visible'), 2400);
+  }
+
+  /* ── Filter + theme logic ── */
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter;
+      const cfg    = themeMap[filter] || themeMap.all;
+
+      /* Activate button */
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
+      /* Switch theme */
+      realm.setAttribute('data-theme', cfg.theme);
+
+      /* Update hero text */
+      const heroLabel = document.getElementById('hero-label');
+      const heroTitle = document.getElementById('hero-title');
+      if (heroLabel) heroLabel.textContent = cfg.label;
+      if (heroTitle) heroTitle.textContent = cfg.title;
+
+      /* Announce */
+      showAnnounce(cfg.msg);
+
+      /* Filter cards */
       cards.forEach(card => {
         const match = filter === 'all' || card.dataset.category === filter;
-        card.style.display = match ? '' : 'none';
         if (match) {
+          card.style.display = '';
           card.style.animation = 'none';
-          card.offsetHeight; // reflow
+          void card.offsetHeight;
           card.style.animation = '';
+        } else {
+          card.style.display = 'none';
         }
       });
     });
