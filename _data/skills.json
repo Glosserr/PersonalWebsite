@@ -20,11 +20,11 @@
     "items": [
       "Custom Engine Dev (C++/OpenGL)",
       "Unity (C#)",
-      "Unreal (Blueprints)",
+      "Godot (Retro game dev, and optimization)",
       "Physics Simulation",
       "Procedural Generation",
       "GLSL Shader Writing",
-      "Entity-Component Systems",
+      "Graphics Optimization Systems",
       "Game Design Fundamentals"
     ]
   },
@@ -34,7 +34,7 @@
     "items": [
       "STM32 / ARM Cortex-M",
       "FreeRTOS",
-      "I2C · SPI · UART · CAN",
+      "Raspberry Pi Programming",
       "Bare-Metal C Firmware",
       "JTAG / GDB Debugging",
       "Motor Control (FOC)",

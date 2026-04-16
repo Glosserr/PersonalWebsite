@@ -1,14 +1,13 @@
 {
-  "name": "Your Name",
-  "initials": "YN",
+  "name": "Richard 'Joey' Glosser",
+  "initials": "RJG",
   "tagline": "Computer Scientist · Game Developer · Embedded Engineer",
-  "bio": "I'm a Computer Science senior graduating in May 2025, with a focus on systems programming, game development, and embedded firmware. I like building things that are fast, correct, and occasionally fun to play.",
-  "email": "you@email.com",
-  "github": "https://github.com/yourusername",
-  "linkedin": "https://linkedin.com/in/yourprofile",
-  "location": "Your City, ST",
-  "university": "Your University",
+  "bio": "I'm a Computer Science senior graduating in May 2025, with a focus on systems programming, game development, and embedded firmware. I like building things that are optimized, interactive, and helpful.",
+  "github": "https://github.com/glosserr",
+  "linkedin": "https://www.linkedin.com/in/richardglosser/",
+  "location": "Rochester Hills, MI",
+  "university": "Mighican State University",
   "degree": "B.S. Computer Science",
-  "graduationYear": "2025",
+  "graduationYear": "2026",
   "resumeFile": "/public/resume.pdf"
 }
